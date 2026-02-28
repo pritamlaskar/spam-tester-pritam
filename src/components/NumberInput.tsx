@@ -30,8 +30,8 @@ const NumberInput = ({ numbers, onNumbersChange }: NumberInputProps) => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="font-mono text-sm font-semibold text-primary tracking-wider uppercase glow-text">
-          Source Numbers
+      <h2 className="font-mono text-sm font-semibold text-primary tracking-wider uppercase glow-text">
+          Destination Numbers
         </h2>
         <span className="font-mono text-xs text-muted-foreground">
           {numbers.length} loaded
