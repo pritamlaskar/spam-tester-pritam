@@ -1,73 +1,94 @@
-# Welcome to your Lovable project
+<h1 align="center">📞 SPAM Tester</h1>
 
-## Project info
+<p align="center">
+Internal web application to initiate controlled outbound test calls and evaluate which numbers are flagged as spam on recipient devices.
+</p>
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+<p align="center">
+Built as a rapid prototype using Lovable to validate outbound call workflows before full Plivo integration.
+</p>
 
-## How can I edit this code?
+<hr/>
 
-There are several ways of editing your application.
+<h2>🎯 Purpose</h2>
 
-**Use Lovable**
+<p>The <strong>Weekday SPAM Tester</strong> is designed to:</p>
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+<ul>
+  <li>Trigger outbound test calls from selected numbers</li>
+  <li>Evaluate which numbers are marked as spam on target phones</li>
+  <li>Track call initiation status</li>
+  <li>Validate backend call API integration</li>
+  <li>Serve as a proof-of-concept before production rollout</li>
+</ul>
 
-Changes made via Lovable will be committed automatically to this repo.
+<p><strong>Note:</strong> This tool is strictly intended for internal testing using verified numbers.</p>
 
-**Use your preferred IDE**
+<hr/>
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+<h2>🛠 Tech Stack</h2>
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+<p>This project is built with:</p>
 
-Follow these steps:
+<ul>
+  <li><strong>Vite</strong></li>
+  <li><strong>TypeScript</strong></li>
+  <li><strong>React</strong></li>
+  <li><strong>shadcn-ui</strong></li>
+  <li><strong>Tailwind CSS</strong></li>
+</ul>
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+<p>
+Backend call initiation is handled via a server function 
+(currently integrated with Twilio for testing; designed to switch to Plivo in production).
+</p>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+<hr/>
 
-# Step 3: Install the necessary dependencies.
-npm i
+<h2>🧩 Architecture Overview</h2>
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+<h3>Frontend (React + Vite)</h3>
 
-**Edit a file directly in GitHub**
+<ul>
+  <li>Accepts list of outbound numbers</li>
+  <li>Accepts target recipient number</li>
+  <li>Displays initiation status per number</li>
+  <li>Provides success/failure feedback</li>
+</ul>
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+<h3>Backend (Server / Edge Function)</h3>
 
-**Use GitHub Codespaces**
+<ul>
+  <li>Receives list of numbers and target number</li>
+  <li>Initiates outbound calls via Voice API</li>
+  <li>Returns call status metadata</li>
+  <li>Designed to be provider-agnostic (Twilio → Plivo swap ready)</li>
+</ul>
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+<hr/>
 
-## What technologies are used for this project?
+<h2>🔁 Call Flow (Prototype Phase)</h2>
 
-This project is built with:
+<ol>
+  <li>User enters:
+    <ul>
+      <li>Source numbers (test list)</li>
+      <li>Target number (recipient device)</li>
+    </ul>
+  </li>
+  <li>User clicks <strong>Initiate Calls</strong></li>
+  <li>Backend triggers outbound calls</li>
+  <li>Recipient device displays incoming call</li>
+  <li>Tester manually observes:
+    <ul>
+      <li>Whether number appears normal</li>
+      <li>Whether number is flagged as spam</li>
+    </ul>
+  </li>
+</ol>
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+<hr/>
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+<p align="center">
+Built as an internal operational testing prototype.
+</p>
