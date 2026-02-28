@@ -9,7 +9,7 @@ import { toast } from "sonner";
 
 const Index = () => {
   const [numbers, setNumbers] = useState<string[]>([]);
-  const [targetNumber, setTargetNumber] = useState("");
+  const [twilioNumber, setTwilioNumber] = useState("");
   const [calls, setCalls] = useState<CallRecord[]>([]);
   const [isRunning, setIsRunning] = useState(false);
   const [delayMs, setDelayMs] = useState(3000);
@@ -17,12 +17,12 @@ const Index = () => {
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
   const startCalling = async () => {
-    if (!targetNumber.trim()) {
-      toast.error("Enter your target number first");
+    if (!twilioNumber.trim()) {
+      toast.error("Enter your Twilio number first");
       return;
     }
     if (numbers.length === 0) {
-      toast.error("Add source numbers first");
+      toast.error("Add destination numbers first");
       return;
     }
 
@@ -41,7 +41,7 @@ const Index = () => {
 
       try {
         const { data, error } = await supabase.functions.invoke("initiate-call", {
-          body: { from: numbers[i], to: targetNumber },
+          body: { from: twilioNumber, to: numbers[i] },
         });
 
         if (error) throw error;
@@ -95,7 +95,7 @@ const Index = () => {
                 Spam Tester
               </h1>
               <p className="text-xs font-mono text-muted-foreground">
-                Automated call initiation via Twilio
+                Bulk call initiation via Twilio
               </p>
             </div>
           </div>
@@ -109,10 +109,7 @@ const Index = () => {
               { label: "Spam Detected", value: spamCount, icon: Phone, color: "text-warning" },
               { label: "Spam Rate", value: completedCalls > 0 ? `${Math.round((spamCount / completedCalls) * 100)}%` : "—", icon: Zap, color: "text-danger" },
             ].map((stat) => (
-              <div
-                key={stat.label}
-                className="bg-card rounded-lg p-4 terminal-border"
-              >
+              <div key={stat.label} className="bg-card rounded-lg p-4 terminal-border">
                 <div className="flex items-center gap-2 mb-1">
                   <stat.icon className={`w-3 h-3 ${stat.color}`} />
                   <span className="font-mono text-xs text-muted-foreground uppercase tracking-wider">
@@ -127,23 +124,23 @@ const Index = () => {
           </div>
         )}
 
-        {/* Target Number */}
+        {/* Twilio Number (From) */}
         <div className="bg-card rounded-lg p-5 terminal-border space-y-3">
           <h2 className="font-mono text-sm font-semibold text-primary tracking-wider uppercase glow-text">
-            Target Number
+            Your Twilio Number
           </h2>
           <p className="font-mono text-xs text-muted-foreground">
-            Your number that will receive all calls
+            This number will be used as the caller ID for all outgoing calls
           </p>
           <Input
-            value={targetNumber}
-            onChange={(e) => setTargetNumber(e.target.value)}
+            value={twilioNumber}
+            onChange={(e) => setTwilioNumber(e.target.value)}
             placeholder="+1234567890"
             className="font-mono text-sm bg-background"
           />
         </div>
 
-        {/* Source Numbers */}
+        {/* Destination Numbers */}
         <div className="bg-card rounded-lg p-5 terminal-border">
           <NumberInput numbers={numbers} onNumbersChange={setNumbers} />
         </div>
@@ -164,7 +161,7 @@ const Index = () => {
             ) : (
               <>
                 <Phone className="w-4 h-4 mr-2" />
-                Start Spam Test
+                Start Bulk Calls
               </>
             )}
           </Button>
@@ -190,7 +187,7 @@ const Index = () => {
             <div className="text-center py-12">
               <Phone className="w-8 h-8 text-muted-foreground/30 mx-auto mb-3" />
               <p className="font-mono text-xs text-muted-foreground">
-                No calls initiated yet. Add numbers and start the test.
+                No calls initiated yet. Add destination numbers and start the test.
               </p>
             </div>
           )}
