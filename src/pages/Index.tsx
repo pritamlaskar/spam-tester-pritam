@@ -12,7 +12,7 @@ const Index = () => {
   const [twilioNumber, setTwilioNumber] = useState("");
   const [calls, setCalls] = useState<CallRecord[]>([]);
   const [isRunning, setIsRunning] = useState(false);
-  const [delayMs, setDelayMs] = useState(3000);
+  const [delayMs, setDelayMs] = useState(60000);
 
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
