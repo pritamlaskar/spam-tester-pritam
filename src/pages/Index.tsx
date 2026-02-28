@@ -12,7 +12,7 @@ const Index = () => {
   const [twilioNumber, setTwilioNumber] = useState("");
   const [calls, setCalls] = useState<CallRecord[]>([]);
   const [isRunning, setIsRunning] = useState(false);
-  const [delayMs, setDelayMs] = useState(60000);
+  const [delaySec, setDelaySec] = useState(60);
 
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -62,7 +62,7 @@ const Index = () => {
       }
 
       if (i < numbers.length - 1) {
-        await sleep(delayMs);
+        await sleep(delaySec * 1000);
       }
     }
 
@@ -170,13 +170,13 @@ const Index = () => {
             <label className="font-mono text-xs text-muted-foreground">Delay:</label>
             <Input
               type="number"
-              value={delayMs}
-              onChange={(e) => setDelayMs(Number(e.target.value))}
+              value={delaySec}
+              onChange={(e) => setDelaySec(Number(e.target.value))}
               className="w-24 font-mono text-xs bg-background"
-              min={1000}
-              step={500}
+              min={1}
+              step={5}
             />
-            <span className="font-mono text-xs text-muted-foreground">ms</span>
+            <span className="font-mono text-xs text-muted-foreground">sec</span>
           </div>
         </div>
 
